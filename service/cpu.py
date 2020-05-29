@@ -8,18 +8,30 @@ class Cpu():
     @classmethod
     def serve(cls):
         """Serve CPU info"""
-        # let's print CPU information
-        print("="*40, "CPU Info", "="*40)
-        # number of cores
-        print("Physical cores:", psutil.cpu_count(logical=False))
-        print("Total cores:", psutil.cpu_count(logical=True))
-        # CPU frequencies
+        # Title
+        cpu_title = '='*15 + ' CPU Info ' + '='*15
+
+        # Cores
+        physical_cores = 'Physical cores:' + \
+            str(psutil.cpu_count(logical=False))
+        total_cores = 'Total cores:' + str(psutil.cpu_count(logical=True))
+
+        # CPU Frequencies
         cpufreq = psutil.cpu_freq()
-        print(f"Max Frequency: {cpufreq.max:.2f}Mhz")
-        print(f"Min Frequency: {cpufreq.min:.2f}Mhz")
-        print(f"Current Frequency: {cpufreq.current:.2f}Mhz")
-        # CPU usage
-        print("CPU Usage Per Core:")
+        max_freq = f'Max Frequency: {cpufreq.max:.2f}Mhz'
+        min_freq = f'Min Frequency: {cpufreq.min:.2f}Mhz'
+        current_freq = f'Current Frequency: {cpufreq.current:.2f}Mhz'
+
+        # CPU Usage
+        usage_message = 'CPU Usage Per Core:'
+        all_core_percentage = ''
         for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
-            print(f"Core {i}: {percentage}%")
-        print(f"Total CPU Usage: {psutil.cpu_percent()}%")
+            core_percentage = f'Core {i}: {percentage}%\n'
+            # Combine each core into a variable
+            all_core_percentage += core_percentage
+        total_usage = f'Total CPU Usage: {psutil.cpu_percent()}%'
+
+        final_message = '\n' + cpu_title + '\n' + physical_cores + '\n' + total_cores + '\n' + \
+            max_freq + '\n' + min_freq + '\n' + current_freq + '\n' + \
+            usage_message + '\n' + all_core_percentage + total_usage
+        return final_message

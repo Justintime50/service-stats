@@ -9,18 +9,26 @@ class Memory():
     @classmethod
     def serve(cls):
         """Serve memory info"""
+        # Title
+        memory_title = '='*15 + ' Memory Information ' + '='*15
+        swap_title = '='*8 + ' SWAP ' + '='*8
+
         # Memory Information
-        print("="*40, "Memory Information", "="*40)
-        # get the memory details
         svmem = psutil.virtual_memory()
-        print(f"Total: {Global.get_size(svmem.total)}")
-        print(f"Available: {Global.get_size(svmem.available)}")
-        print(f"Used: {Global.get_size(svmem.used)}")
-        print(f"Percentage: {svmem.percent}%")
-        print("="*20, "SWAP", "="*20)
-        # get the swap memory details (if exists)
+        memory_total = f'Total: {Global.get_size(svmem.total)}'
+        memory_available = f'Available: {Global.get_size(svmem.available)}'
+        memory_used = f'Used: {Global.get_size(svmem.used)}'
+        memory_percentage = f'Percentage: {svmem.percent}%'
+
+        # Get the swap memory details (if it exists)
         swap = psutil.swap_memory()
-        print(f"Total: {Global.get_size(swap.total)}")
-        print(f"Free: {Global.get_size(swap.free)}")
-        print(f"Used: {Global.get_size(swap.used)}")
-        print(f"Percentage: {swap.percent}%")
+        swap_total = f'Total: {Global.get_size(swap.total)}'
+        swap_free = f'Free: {Global.get_size(swap.free)}'
+        swap_used = f'Used: {Global.get_size(swap.used)}'
+        swap_percentage = f'Percentage: {swap.percent}%'
+
+        final_message = '\n' + memory_title + '\n' + memory_total + '\n' + \
+            memory_available + '\n' + memory_used + '\n' + \
+            memory_percentage + '\n' + swap_title + '\n' + swap_total + \
+            '\n' + swap_free + '\n' + swap_used + '\n' + swap_percentage
+        return final_message

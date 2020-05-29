@@ -9,10 +9,14 @@ class Boot():
     @classmethod
     def serve(cls):
         """Serve boot time info"""
-        # Boot Time
-        print("="*40, "Boot Time", "="*40)
+        # Title
+        boot_title = '='*15 + ' Boot Time ' + '='*15
+
+        # Timestamp
         boot_time_timestamp = psutil.boot_time()
         boot_time = datetime.fromtimestamp(boot_time_timestamp)
-        print(
-            f"Boot Time: {boot_time.year}/{boot_time.month}/{boot_time.day}" +
-            f"{boot_time.hour}:{boot_time.minute}:{boot_time.second}")
+        boot_message = f'Boot Time: {boot_time.year}/{boot_time.month}/{boot_time.day}' \
+            f'{boot_time.hour}:{boot_time.minute}:{boot_time.second}'
+
+        final_message = '\n' + boot_title + '\n' + boot_message
+        return final_message

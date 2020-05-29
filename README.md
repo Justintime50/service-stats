@@ -11,18 +11,29 @@ Service serves savvy server stats. Talk about alliteration!
 
 </div>
 
-Service provides data about boot time, CPU usage, disk usage, memory usage, network usage, and system information. You can send all this right to Slack. Great for a daily/weekly server snapshot of what's going on.
+Service provides data about boot time, CPU usage, disk usage, memory usage, network usage, and system information. You can send all this right to Slack. Great for a daily/weekly server snapshot of what's going on. Build custom logic to warn you about high CPU/memory usage or low available disk space.
 
 ## Install
 
 ```bash
 pip3 install -r requirements.txt
+cp .env.example .env
 ```
 
 ## Usage
 
+Grab all server data and send it to Slack.
+
 ```bash
 python3 app.py
+```
+
+## Cron
+
+```bash
+crontab -e
+
+0 9 * * 1 /usr/local/bin/python3 /Users/admin/Sites/service/app.py
 ```
 
 ## Attribution

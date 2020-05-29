@@ -1,5 +1,5 @@
 """Import modules"""
-# pylint: disable=R0903
+# pylint: disable=R0903,R0914
 import psutil
 from .globals import Global
 
@@ -9,22 +9,35 @@ class Network():
     @classmethod
     def serve(cls):
         """Serve network info"""
-        # Network information
-        print("="*40, "Network Information", "="*40)
-        # get all network interfaces (virtual and physical)
+        # Title
+        network_title = '='*15 + ' Network Information ' + '='*15
+
+        # Network information (virtual and physical)
         if_addrs = psutil.net_if_addrs()
+        all_pieces = ''
         for interface_name, interface_addresses in if_addrs.items():
             for address in interface_addresses:
-                print(f"=== Interface: {interface_name} ===")
+                interface_title = f'=== Interface: {interface_name} ==='
                 if str(address.family) == 'AddressFamily.AF_INET':
-                    print(f"  IP Address: {address.address}")
-                    print(f"  Netmask: {address.netmask}")
-                    print(f"  Broadcast IP: {address.broadcast}")
+                    ip_address = f'  IP Address: {address.address}'
+                    netmask = f'  Netmask: {address.netmask}'
+                    broadcast_ip = f'  Broadcast IP: {address.broadcast}'
+                    # Combine each piece into a variable
+                    piece = ip_address + '\n' + netmask + '\n' + broadcast_ip
                 elif str(address.family) == 'AddressFamily.AF_PACKET':
-                    print(f"  MAC Address: {address.address}")
-                    print(f"  Netmask: {address.netmask}")
-                    print(f"  Broadcast MAC: {address.broadcast}")
+                    mac = f'  MAC Address: {address.address}'
+                    netmask = f'  Netmask: {address.netmask}'
+                    broadcast_mac = f'  Broadcast MAC: {address.broadcast}'
+                    # Combine each piece into a variable
+                    piece = mac + '\n' + netmask + '\n' + broadcast_mac
+                # Combine each piece into a variable
+                all_pieces += interface_title + '\n' + piece + '\n'
+
         # get IO statistics since boot
         net_io = psutil.net_io_counters()
-        print(f"Total Bytes Sent: {Global.get_size(net_io.bytes_sent)}")
-        print(f"Total Bytes Received: {Global.get_size(net_io.bytes_recv)}")
+        sent = f'Total Bytes Sent: {Global.get_size(net_io.bytes_sent)}'
+        received = f'Total Bytes Received: {Global.get_size(net_io.bytes_recv)}'
+
+        final_message = '\n' + network_title + '\n' + \
+            all_pieces + sent + '\n' + received
+        return final_message

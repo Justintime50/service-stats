@@ -1,5 +1,5 @@
 """Import modules"""
-# pylint: disable=R0903
+# pylint: disable=R0903,R0914
 import psutil
 from .globals import Global
 
@@ -9,26 +9,34 @@ class Disk():
     @classmethod
     def serve(cls):
         """Serve disk info"""
+        # Title
+        disk_title = '='*15 + ' Disk Information ' + '='*15
+        partition_title = 'Partitions and Usage:'
+
         # Disk Information
-        print("="*40, "Disk Information", "="*40)
-        print("Partitions and Usage:")
-        # get all disk partitions
         partitions = psutil.disk_partitions()
         for partition in partitions:
-            print(f"=== Device: {partition.device} ===")
-            print(f"  Mountpoint: {partition.mountpoint}")
-            print(f"  File system type: {partition.fstype}")
+            device = f'=== Device: {partition.device} ==='
+            mountpoint = f'  Mountpoint: {partition.mountpoint}'
+            filesystem_type = f'  File system type: {partition.fstype}'
             try:
                 partition_usage = psutil.disk_usage(partition.mountpoint)
             except PermissionError:
-                # this can be catched due to the disk that
-                # isn't ready
+                # Catch errors when a disk isn't ready
                 continue
-            print(f"  Total Size: {Global.get_size(partition_usage.total)}")
-            print(f"  Used: {Global.get_size(partition_usage.used)}")
-            print(f"  Free: {Global.get_size(partition_usage.free)}")
-            print(f"  Percentage: {partition_usage.percent}%")
-        # get IO statistics since boot
+            total_size = f'  Total Size: {Global.get_size(partition_usage.total)}'
+            used = f'  Used: {Global.get_size(partition_usage.used)}'
+            free = f'  Free: {Global.get_size(partition_usage.free)}'
+            percentage = f'  Percentage: {partition_usage.percent}%'
+            # Combine each disk into a variable
+            disk = device + '\n' + mountpoint + '\n' + filesystem_type + '\n' + \
+                total_size + '\n' + used + '\n' + free + '\n' + percentage
+
+        # Get IO stats since boot
         disk_io = psutil.disk_io_counters()
-        print(f"Total read: {Global.get_size(disk_io.read_bytes)}")
-        print(f"Total write: {Global.get_size(disk_io.write_bytes)}")
+        total_read = f'Total read (since boot): {Global.get_size(disk_io.read_bytes)}'
+        total_write = f'Total write (since boot): {Global.get_size(disk_io.write_bytes)}'
+
+        final_message = '\n' + disk_title + '\n' + partition_title + \
+            '\n' + disk + '\n' + total_read + '\n' + total_write
+        return final_message
