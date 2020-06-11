@@ -1,4 +1,0 @@
-psutil
-pylint
-slackclient
-python-dotenv
