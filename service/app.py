@@ -42,31 +42,43 @@ def main():
     if args.boot is True:
         boot = Boot.serve()
         print(boot)
+    else:
+        boot = ''
 
     # Serve CPU data
     if args.cpu is True:
         cpu = Cpu.serve()
         print(cpu)
+    else:
+        cpu = ''
 
     # Serve disk data
     if args.disk is True:
         disk = Disk.serve()
         print(disk)
+    else:
+        disk = ''
 
     # Serve memory data
     if args.memory is True:
         memory = Memory.serve()
         print(memory)
+    else:
+        memory = ''
 
     # Serve network data
     if args.network is True:
         network = Network.serve()
         print(network)
+    else:
+        network = ''
 
     # Serve system data
     if args.system is True:
         system = System.serve()
         print(system)
+    else:
+        system = ''
 
     # Send Slack message
     if args.slack is True:
