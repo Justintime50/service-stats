@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+### v1.0.2 (2020-06-21)
+
+* Travis fixes
+* Fixed a bug where only a single disk data was read instead of all of them
+
 ### v1.0.1 (2020-06-21)
 
 * Fixed Slack message to contain null values for system data not selected

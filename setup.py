@@ -11,7 +11,7 @@ REQUIREMENTS = [
 
 setuptools.setup(
     name='service-stats',
-    version='1.0.1',
+    version='1.0.2',
     description='Service serves savvy server stats.',
     long_description=long_description,
     long_description_content_type="text/markdown",

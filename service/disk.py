@@ -15,6 +15,7 @@ class Disk():
 
         # Disk Information
         partitions = psutil.disk_partitions()
+        disk = ''
         for partition in partitions:
             device = f'=== Device: {partition.device} ==='
             mountpoint = f'  Mountpoint: {partition.mountpoint}'
@@ -29,8 +30,8 @@ class Disk():
             free = f'  Free: {Global.get_size(partition_usage.free)}'
             percentage = f'  Percentage: {partition_usage.percent}%'
             # Combine each disk into a variable
-            disk = device + '\n' + mountpoint + '\n' + filesystem_type + '\n' + \
-                total_size + '\n' + used + '\n' + free + '\n' + percentage
+            disk += device + '\n' + mountpoint + '\n' + filesystem_type + '\n' + \
+                total_size + '\n' + used + '\n' + free + '\n' + percentage + '\n'
 
         # Get IO stats since boot
         disk_io = psutil.disk_io_counters()
