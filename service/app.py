@@ -1,5 +1,5 @@
 """Import Modules"""
-# pylint: disable=C0103
+# pylint: disable=C0103,R0912
 from datetime import datetime
 import argparse
 from .boot_time import Boot
