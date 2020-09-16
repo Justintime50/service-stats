@@ -5,7 +5,9 @@
 Service serves savvy server stats.
 
 [![Build Status](https://travis-ci.com/Justintime50/service.svg?branch=master)](https://travis-ci.com/Justintime50/service)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![Coverage Status](https://coveralls.io/repos/github/Justintime50/service/badge.svg?branch=master)](https://coveralls.io/github/Justintime50/service?branch=master)
+[![PyPi](https://img.shields.io/pypi/v/service-stats)](https://pypi.org/project/service-stats/)
+[![Licence](https://img.shields.io/github/license/justintime50/service)](LICENSE)
 
 <img src="assets/showcase.png" alt="Showcase">
 
