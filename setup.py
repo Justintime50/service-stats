@@ -11,7 +11,7 @@ REQUIREMENTS = [
 
 setuptools.setup(
     name='service-stats',
-    version='1.0.2',
+    version='1.1.0',
     description='Service serves savvy server stats.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -27,7 +27,10 @@ setuptools.setup(
     install_requires=REQUIREMENTS,
     extras_require={
         'dev': [
-            'pylint >= 2.5.0',
+            'pytest >= 6.0.0',
+            'pytest-cov >= 2.10.0',
+            'coveralls >= 2.1.2',
+            'flake8 >= 3.8.0',
         ]
     },
     entry_points={

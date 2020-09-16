@@ -1,15 +1,13 @@
-"""Import modules"""
-# pylint: disable=R0903
 import psutil
 
 
 class Cpu():
-    """CPU information"""
     @classmethod
     def serve(cls):
-        """Serve CPU info"""
+        """Serve CPU info
+        """
         # Title
-        cpu_title = '='*15 + ' CPU Info ' + '='*15
+        cpu_title = '='*15 + ' CPU Information ' + '='*15
 
         # Cores
         physical_cores = 'Physical cores:' + \
@@ -25,13 +23,25 @@ class Cpu():
         # CPU Usage
         usage_message = 'CPU Usage Per Core:'
         all_core_percentage = ''
-        for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
+        for i, percentage in enumerate(
+            psutil.cpu_percent(
+                percpu=True,
+                interval=1
+            )
+        ):
             core_percentage = f'Core {i}: {percentage}%\n'
             # Combine each core into a variable
             all_core_percentage += core_percentage
         total_usage = f'Total CPU Usage: {psutil.cpu_percent()}%'
 
-        final_message = '\n' + cpu_title + '\n' + physical_cores + '\n' + total_cores + '\n' + \
-            max_freq + '\n' + min_freq + '\n' + current_freq + '\n' + \
-            usage_message + '\n' + all_core_percentage + total_usage
+        final_message = (
+            '\n' + cpu_title +
+            '\n' + physical_cores +
+            '\n' + total_cores +
+            '\n' + max_freq +
+            '\n' + min_freq +
+            '\n' + current_freq +
+            '\n' + usage_message +
+            '\n' + all_core_percentage + total_usage
+        )
         return final_message

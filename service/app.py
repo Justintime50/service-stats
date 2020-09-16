@@ -1,91 +1,142 @@
-"""Import Modules"""
-# pylint: disable=C0103,R0912
 from datetime import datetime
 import argparse
-from .boot_time import Boot
-from .cpu import Cpu
-from .disk import Disk
-from .memory import Memory
-from .network import Network
-from .slack import Slack
-from .system import System
+from service.stats.boot_time import Boot
+from service.stats.cpu import Cpu
+from service.stats.disk import Disk
+from service.stats.memory import Memory
+from service.stats.network import Network
+from service.stats.system import System
+from service.slack import Slack
 
 
-# Setup arguments
-parser = argparse.ArgumentParser(
-    description='Service serves savvy server stats.')
-parser.add_argument('-b', '--boot', action='store_true',
-                    help='Show boot time stats.')
-parser.add_argument('-c', '--cpu', action='store_true',
-                    help='Show CPU stats.')
-parser.add_argument('-d', '--disk', action='store_true',
-                    help='Show disk stats.')
-parser.add_argument('-m', '--memory', action='store_true',
-                    help='Show memory stats.')
-parser.add_argument('-n', '--network', action='store_true',
-                    help='Show network stats.')
-parser.add_argument('-s', '--system', action='store_true',
-                    help='Show system stats.')
-parser.add_argument('-sl', '--slack', action='store_true',
-                    help='Send Service report to Slack.')
-args = parser.parse_args()
+class ServiceCLI():
+    def __init__(self):
+        """Setup CLI args
+        """
+        parser = argparse.ArgumentParser(
+            description='Service serves savvy server stats.'
+        )
+        parser.add_argument(
+            '-b',
+            '--boot',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show boot time stats.'
+        )
+        parser.add_argument(
+            '-c',
+            '--cpu',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show CPU stats.'
+        )
+        parser.add_argument(
+            '-d',
+            '--disk',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show disk stats.'
+        )
+        parser.add_argument(
+            '-m',
+            '--memory',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show memory stats.'
+        )
+        parser.add_argument(
+            '-n',
+            '--network',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show network stats.'
+        )
+        parser.add_argument(
+            '-s',
+            '--system',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Show system stats.'
+        )
+        parser.add_argument(
+            '-sl',
+            '--slack',
+            action='store_true',
+            required=False,
+            default=False,
+            help='Send Service report to Slack.'
+        )
+        parser.parse_args(namespace=self)
+
+    def run(self):
+        Service.run(
+            boot=self.boot,
+            cpu=self.cpu,
+            disk=self.disk,
+            memory=self.memory,
+            network=self.network,
+            system=self.system,
+            slack=self.slack,
+        )
+
+
+class Service():
+    @classmethod
+    def serve_data(cls, data_type):
+        """Serve data from the specified category
+        """
+        data = data_type.serve()
+        print(data)
+        return data
+
+    @classmethod
+    def run(cls, boot=True, cpu=False, disk=False, memory=False,
+            network=False, system=False, slack=False):
+        """Run the Service app
+        """
+        # Preamble
+        service_message = '='*15 + ' SERVICE ' + '=' * \
+            15 + '\n' + f'Service Report ({datetime.now()})'
+        print(service_message)
+
+        if boot is True:
+            boot_message = cls.serve_data(Boot)
+        if cpu is True:
+            cpu_message = cls.serve_data(Cpu)
+        if disk is True:
+            disk_message = cls.serve_data(Disk)
+        if memory is True:
+            memory_message = cls.serve_data(Memory)
+        if network is True:
+            network_message = cls.serve_data(Network)
+        if system is True:
+            system_message = cls.serve_data(System)
+
+        final_message = (
+            f'\n{service_message if service_message else ""}'
+            f'\n{boot_message if boot_message else ""}'
+            f'\n{system_message if system_message else ""}'
+            f'\n{cpu_message if cpu_message else ""}'
+            f'\n{disk_message if disk_message else ""}'
+            f'\n{memory_message if memory_message else ""}'
+            f'\n{network_message if network_message else ""}'
+        )
+
+        if slack is True:
+            slack = Slack.message(final_message)
+            print(slack)
+
+        return final_message
 
 
 def main():
-    """Run the Service app"""
-    # Preamble
-    service_message = '='*15 + ' SERVICE ' + '=' * \
-        15 + '\n' + f'Service Report ({datetime.now()})\n{args}'
-    print(service_message)
-
-    # Serve boot time data
-    if args.boot is True:
-        boot = Boot.serve()
-        print(boot)
-    else:
-        boot = ''
-
-    # Serve CPU data
-    if args.cpu is True:
-        cpu = Cpu.serve()
-        print(cpu)
-    else:
-        cpu = ''
-
-    # Serve disk data
-    if args.disk is True:
-        disk = Disk.serve()
-        print(disk)
-    else:
-        disk = ''
-
-    # Serve memory data
-    if args.memory is True:
-        memory = Memory.serve()
-        print(memory)
-    else:
-        memory = ''
-
-    # Serve network data
-    if args.network is True:
-        network = Network.serve()
-        print(network)
-    else:
-        network = ''
-
-    # Serve system data
-    if args.system is True:
-        system = System.serve()
-        print(system)
-    else:
-        system = ''
-
-    # Send Slack message
-    if args.slack is True:
-        final_message = '\n' + service_message + '\n' + boot + '\n' + \
-            system + '\n' + cpu + '\n' + disk + '\n' + memory + '\n' + network
-        slack = Slack.message(final_message)
-        print(slack)
+    ServiceCLI().run()
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ Service serves savvy server stats.
 [![Build Status](https://travis-ci.com/Justintime50/service.svg?branch=master)](https://travis-ci.com/Justintime50/service)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-<img src="assets/showcase.png">
+<img src="assets/showcase.png" alt="Showcase">
 
 </div>
 
@@ -19,8 +19,14 @@ Service is completely configurable, allowing you to request data about boot time
 # Install Service
 pip3 install service-stats
 
+# Install locally
+make install
+
 # Setup Slack ENV variables (optional)
 cp .env.example .env
+
+# Get Makefile help
+make help
 ```
 
 ## Usage
@@ -32,14 +38,18 @@ Usage:
     service --boot --cpu --disk --memory --network --system --slack
 
 Options:
-    -b, --boot      Show boot stats
-    -c, --cpu       Show CPU stats
-    -d, --disk      Show disk stats
-    -m, --memory    Show memory stats
-    -n, --network   Show network stats
-    -s, --system    Show system stats
-    -sl, --slack    Send Service report to Slack (must configure ENV variables)
-    -h, --help      Show package usage help
+    -h, --help     show this help message and exit
+    -b, --boot     Show boot time stats.
+    -c, --cpu      Show CPU stats.
+    -d, --disk     Show disk stats.
+    -m, --memory   Show memory stats.
+    -n, --network  Show network stats.
+    -s, --system   Show system stats.
+    -sl, --slack   Send Service report to Slack.
+
+Environment Variables (optional):
+    SLACK_BOT_TOKEN     The Slackbot token to use for authentication
+    SLACK_CHANNEL       The channel to post a message to
 ```
 
 ## Cron
@@ -52,16 +62,15 @@ crontab -e
 
 ## Development
 
-Install project with dev depencencies:
-
 ```bash
-pip3 install -e ."[dev]"
-```
+# Lint the project
+make lint
 
-Lint the project:
+# Run tests
+make test
 
-```bash
-pylint service/*.py
+# Run the scripts locally
+venv/bin/python service/app.py --help
 ```
 
 ## Attribution

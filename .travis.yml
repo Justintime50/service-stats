@@ -1,12 +1,25 @@
 language: python
 
 python:
-    - "3.6"
-    - "3.7"
-    - "3.8"
+    - '3.6'
+    - '3.7'
+    - '3.8'
 
-install:
-    - pip install -e ."[dev]"
+install: pip install -e ."[dev]"
 
 script: 
-    - pylint service/*.py
+    - flake8 service/*.py
+    - flake8 test/*.py
+    - pytest --cov=service
+
+deploy:
+    provider: pypi
+    username: "__token__"
+    password:
+        secure: qAv0ZSMiriif1Elk8vWDKF9NtowCyWgZ7BlknczjsjUTfIf5/EG7kLJ1a5jsXumOXaR5se7HnoYv1y11RGENOHouDvx0t6Ijb/So5tZdgdUoIcPUjrmMTivka1DnOjotZyL30/uDamyvGi0QFDVO09ChxFHn01iF+KhLbCLmAvGIEUy8CoPa3qmhhnvFzMa8wELnq1qAs6Z90Zx+xaMVYn0kyegpr80lpVi8xiAqH8qBFeMe2Uw5UGoZnpg0CKP0irKsh4CcpHxIGFI1n3nZR3Hoab9WCdzb/hx5omD+S9N9LH/YQs4mfXNVuF2KmVVBHTqiYevDBTJlyrwFAkytMmm0CneBEklWPB7Y29vhMY+9PayKyrCo/sPMFOT1JS3isyjGgPIUddXEPQEzxNr2qyhjetVxINoXZpmJre0DpEv5L/6cqwmkdQUSn2dkldxo/dQaXVNa2OaHZKlG2luQBhJuAEEPA9NC5VtxxE/G9b/oTI6lj+gMuepeuD8inpOz3kMw2Rs9hstN8teo26aCpELC3eGj8Mq7huFoPxflF2jIiULZb3QKh5yur/LpjxNlSIbkLcDSlcK6VjeGMBiEe1wiPn5b+zfOmb9Ac/1yQ7aCD6jRypqWpHQtcSkn0BLjm3OIkMgTLPmvh/pPo/ByYY3KjyJXsYvymzHoWwJ6TR8=
+    on:
+        tags: true
+    skip_existing: true
+
+after_success:
+    - coveralls

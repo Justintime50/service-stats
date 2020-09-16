@@ -1,14 +1,12 @@
-"""Import modules"""
-# pylint: disable=R0903,R0914
 import psutil
-from .globals import Global
+from service.stats.globals import Global
 
 
 class Network():
-    """Network information"""
     @classmethod
     def serve(cls):
-        """Serve network info"""
+        """Serve network info
+        """
         # Title
         network_title = '='*15 + ' Network Information ' + '='*15
 
@@ -36,8 +34,11 @@ class Network():
         # get IO statistics since boot
         net_io = psutil.net_io_counters()
         sent = f'Total Bytes Sent: {Global.get_size(net_io.bytes_sent)}'
-        received = f'Total Bytes Received: {Global.get_size(net_io.bytes_recv)}'
+        received = f'Total Bytes Received: {Global.get_size(net_io.bytes_recv)}'  # noqa
 
-        final_message = '\n' + network_title + '\n' + \
-            all_pieces + sent + '\n' + received
+        final_message = (
+            '\n' + network_title +
+            '\n' + all_pieces + sent +
+            '\n' + received
+        )
         return final_message

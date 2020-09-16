@@ -1,14 +1,12 @@
-"""Import modules"""
-# pylint: disable=R0903
 import psutil
-from .globals import Global
+from service.stats.globals import Global
 
 
 class Memory():
-    """Memory (RAM) information"""
     @classmethod
     def serve(cls):
-        """Serve memory info"""
+        """Serve memory (RAM) info
+        """
         # Title
         memory_title = '='*15 + ' Memory Information ' + '='*15
         swap_title = '='*8 + ' SWAP ' + '='*8
@@ -27,8 +25,16 @@ class Memory():
         swap_used = f'Used: {Global.get_size(swap.used)}'
         swap_percentage = f'Percentage: {swap.percent}%'
 
-        final_message = '\n' + memory_title + '\n' + memory_total + '\n' + \
-            memory_available + '\n' + memory_used + '\n' + \
-            memory_percentage + '\n' + swap_title + '\n' + swap_total + \
-            '\n' + swap_free + '\n' + swap_used + '\n' + swap_percentage
+        final_message = (
+            '\n' + memory_title +
+            '\n' + memory_total +
+            '\n' + memory_available +
+            '\n' + memory_used +
+            '\n' + memory_percentage +
+            '\n' + swap_title +
+            '\n' + swap_total +
+            '\n' + swap_free +
+            '\n' + swap_used +
+            '\n' + swap_percentage
+        )
         return final_message

@@ -1,13 +1,11 @@
-"""Import modules"""
-# pylint: disable=R0903
 import platform
 
 
 class System():
-    """System information"""
     @classmethod
     def serve(cls):
-        """Serve system info"""
+        """Serve system info
+        """
         # Title
         system_title = '='*15 + ' System Information ' + '='*15
 
@@ -20,6 +18,13 @@ class System():
         machine = f'Machine: {uname.machine}'
         processor = f'Processor: {uname.processor}'
 
-        final_message = '\n' + system_title + '\n' + system_name + '\n' + node_name + \
-            '\n' + release + '\n' + version + '\n' + machine + '\n' + processor
+        final_message = (
+            '\n' + system_title +
+            '\n' + system_name +
+            '\n' + node_name +
+            '\n' + release +
+            '\n' + version +
+            '\n' + machine +
+            '\n' + processor
+        )
         return final_message
