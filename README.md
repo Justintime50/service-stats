@@ -54,14 +54,6 @@ Environment Variables (optional):
     SLACK_CHANNEL       The channel to post a message to
 ```
 
-## Cron
-
-```bash
-crontab -e
-
-0 9 * * 1 service --boot --cpu --disk --memory --network --system --slack
-```
-
 ## Development
 
 ```bash
@@ -70,6 +62,9 @@ make lint
 
 # Run tests
 make test
+
+# Run test coverage
+make coverage
 
 # Run the scripts locally
 venv/bin/python service/app.py --help
