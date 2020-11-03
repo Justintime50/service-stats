@@ -1,12 +1,14 @@
 from datetime import datetime
 import argparse
-from service.stats.boot_time import Boot
-from service.stats.cpu import Cpu
-from service.stats.disk import Disk
-from service.stats.memory import Memory
-from service.stats.network import Network
-from service.stats.system import System
-from service.slack import Slack
+from service import (
+    Boot,
+    Cpu,
+    Disk,
+    Memory,
+    Network,
+    System,
+    Slack,
+)
 
 
 class ServiceCLI():
@@ -105,32 +107,26 @@ class Service():
             15 + '\n' + f'Service Report ({datetime.now()})'
         print(service_message)
 
-        if boot is True:
-            boot_message = cls.serve_data(Boot)
-        if cpu is True:
-            cpu_message = cls.serve_data(Cpu)
-        if disk is True:
-            disk_message = cls.serve_data(Disk)
-        if memory is True:
-            memory_message = cls.serve_data(Memory)
-        if network is True:
-            network_message = cls.serve_data(Network)
-        if system is True:
-            system_message = cls.serve_data(System)
+        boot_message = cls.serve_data(Boot) if boot else None
+        cpu_message = cls.serve_data(Cpu) if cpu else None
+        disk_message = cls.serve_data(Disk) if disk else None
+        memory_message = cls.serve_data(Memory) if memory else None
+        network_message = cls.serve_data(Network) if network else None
+        system_message = cls.serve_data(System) if system else None
 
         final_message = (
-            f'\n{service_message if service_message else ""}'
-            f'\n{boot_message if boot_message else ""}'
-            f'\n{system_message if system_message else ""}'
-            f'\n{cpu_message if cpu_message else ""}'
-            f'\n{disk_message if disk_message else ""}'
-            f'\n{memory_message if memory_message else ""}'
-            f'\n{network_message if network_message else ""}'
+            f'\n{service_message}'
+            f'\n{boot_message}'
+            f'\n{system_message}'
+            f'\n{cpu_message}'
+            f'\n{disk_message}'
+            f'\n{memory_message}'
+            f'\n{network_message}'
         )
 
-        if slack is True:
-            slack = Slack.message(final_message)
-            print(slack)
+        if slack:
+            slack_output = Slack.message(final_message)
+            print(slack_output)
 
         return final_message
 

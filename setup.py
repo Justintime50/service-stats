@@ -11,7 +11,7 @@ REQUIREMENTS = [
 
 setuptools.setup(
     name='service-stats',
-    version='1.1.0',
+    version='1.2.0',
     description='Service serves savvy server stats.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -31,6 +31,7 @@ setuptools.setup(
             'pytest-cov >= 2.10.0',
             'coveralls >= 2.1.2',
             'flake8 >= 3.8.0',
+            'mock >= 4.0.0',
         ]
     },
     entry_points={

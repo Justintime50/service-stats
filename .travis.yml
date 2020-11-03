@@ -10,7 +10,7 @@ install: pip install -e ."[dev]"
 script: 
     - flake8 service/*.py
     - flake8 test/*.py
-    - pytest --cov=service
+    - pytest --cov=service --cov-branch
 
 deploy:
     provider: pypi

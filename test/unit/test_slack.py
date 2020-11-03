@@ -1,5 +1,6 @@
-from service.slack import Slack
+import mock
 import pytest
+from service.slack import Slack
 
 
 def test_slack_error():
@@ -7,8 +8,10 @@ def test_slack_error():
         Slack.message('dummy message')
 
 
-@pytest.mark.skip('Need to write test first')
-def test_slack_success():
-    # TODO: Write test
-    result = Slack.message('dummy message')
-    assert result == ''
+@mock.patch('service.slack.SLACK_BOT_TOKEN', '123')
+@mock.patch('service.slack.SLACK_CHANNEL', 'mock-channel')
+@mock.patch('slack.WebClient.chat_postMessage')
+def test_slack_success(mock_slack):
+    message = 'dummy message'
+    Slack.message(message)
+    mock_slack.assert_called_once_with(channel='mock-channel', text=message)

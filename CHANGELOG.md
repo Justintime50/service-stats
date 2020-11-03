@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.2.0 (2020-11-03)
+
+* Fixed a bug where variables were not being referenced properly and the app could not be run
+* Made package importable with `__init__.py` file
+* Added unit tests for Slack
+
 ## v1.1.0 (2020-09-15)
 
 * Added unit tests and test coverage

@@ -30,4 +30,8 @@ lint:
 test:
 	venv/bin/pytest
 
-.PHONY: help install clean lint test 
+## coverage - Test the project and generate an HTML coverage report
+coverage:
+	venv/bin/pytest --cov=service --cov-branch --cov-report=html
+
+.PHONY: help install clean lint test coverage
