@@ -107,12 +107,12 @@ class Service():
             15 + '\n' + f'Service Report ({datetime.now()})'
         print(service_message)
 
-        boot_message = cls.serve_data(Boot) if boot else None
-        cpu_message = cls.serve_data(Cpu) if cpu else None
-        disk_message = cls.serve_data(Disk) if disk else None
-        memory_message = cls.serve_data(Memory) if memory else None
-        network_message = cls.serve_data(Network) if network else None
-        system_message = cls.serve_data(System) if system else None
+        boot_message = cls.serve_data(Boot) if boot else ''
+        cpu_message = cls.serve_data(Cpu) if cpu else ''
+        disk_message = cls.serve_data(Disk) if disk else ''
+        memory_message = cls.serve_data(Memory) if memory else ''
+        network_message = cls.serve_data(Network) if network else ''
+        system_message = cls.serve_data(System) if system else ''
 
         final_message = (
             f'\n{service_message}'

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.2.1 (2020-11-16)
+
+* Swapping `None` for empty strings on those items that aren't present in reports, otherwise it'll literally print `None` when we don't want anything printed
+
 ## v1.2.0 (2020-11-03)
 
 * Fixed a bug where variables were not being referenced properly and the app could not be run
