@@ -1,16 +1,17 @@
 import os
-import slack
+
 from dotenv import load_dotenv
 
+import slack
 
 SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
 SLACK_CHANNEL = os.getenv('SLACK_CHANNEL')
 
 
 class Slack():
-    @classmethod
-    def message(cls, message):
-        """Send the output of Service to Slack
+    @staticmethod
+    def message(message):
+        """Send the output of ServiceStats to Slack
         """
         load_dotenv()
         slack_client = slack.WebClient(SLACK_BOT_TOKEN)
@@ -22,4 +23,4 @@ class Slack():
             success = 'Slack message sent!'
             return success
         except slack.errors.SlackApiError:
-            raise Exception('Could not send the Service Slack message.')
+            raise Exception('Could not send the ServiceStats Slack message.')

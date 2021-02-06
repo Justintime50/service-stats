@@ -1,14 +1,7 @@
-from datetime import datetime
 import argparse
-from service import (
-    Boot,
-    Cpu,
-    Disk,
-    Memory,
-    Network,
-    System,
-    Slack,
-)
+from datetime import datetime
+
+import service_stats
 
 
 class ServiceCLI():
@@ -72,12 +65,12 @@ class ServiceCLI():
             action='store_true',
             required=False,
             default=False,
-            help='Send Service report to Slack.'
+            help='Send ServiceStats report to Slack.'
         )
         parser.parse_args(namespace=self)
 
     def run(self):
-        Service.run(
+        ServiceStats.run(
             boot=self.boot,
             cpu=self.cpu,
             disk=self.disk,
@@ -88,31 +81,37 @@ class ServiceCLI():
         )
 
 
-class Service():
-    @classmethod
-    def serve_data(cls, data_type):
+class ServiceStats():
+    @staticmethod
+    def serve_data(data_type):
         """Serve data from the specified category
         """
-        data = data_type.serve()
+        data = data_type.serve_data()
         print(data)
         return data
 
-    @classmethod
-    def run(cls, boot=True, cpu=False, disk=False, memory=False,
+    @staticmethod
+    def run(boot=True, cpu=False, disk=False, memory=False,
             network=False, system=False, slack=False):
-        """Run the Service app
+        """Run the Service Stats app
         """
         # Preamble
         service_message = '='*15 + ' SERVICE ' + '=' * \
-            15 + '\n' + f'Service Report ({datetime.now()})'
+            15 + '\n' + f'Service Stats Report ({datetime.now()})'
         print(service_message)
 
-        boot_message = cls.serve_data(Boot) if boot else ''
-        cpu_message = cls.serve_data(Cpu) if cpu else ''
-        disk_message = cls.serve_data(Disk) if disk else ''
-        memory_message = cls.serve_data(Memory) if memory else ''
-        network_message = cls.serve_data(Network) if network else ''
-        system_message = cls.serve_data(System) if system else ''
+        boot_message = ServiceStats.serve_data(
+            service_stats.Boot) if boot else ''
+        cpu_message = ServiceStats.serve_data(
+            service_stats.Cpu) if cpu else ''
+        disk_message = ServiceStats.serve_data(
+            service_stats.Disk) if disk else ''
+        memory_message = ServiceStats.serve_data(
+            service_stats.Memory) if memory else ''
+        network_message = ServiceStats.serve_data(
+            service_stats.Network) if network else ''
+        system_message = ServiceStats.serve_data(
+            service_stats.System) if system else ''
 
         final_message = (
             f'\n{service_message}'
@@ -125,7 +124,7 @@ class Service():
         )
 
         if slack:
-            slack_output = Slack.message(final_message)
+            slack_output = service_stats.Slack.message(final_message)
             print(slack_output)
 
         return final_message

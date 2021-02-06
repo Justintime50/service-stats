@@ -1,10 +1,10 @@
 import psutil
-from service.stats.globals import Global
+from service_stats.stats.globals import Global
 
 
 class Disk():
-    @classmethod
-    def serve(cls):
+    @staticmethod
+    def serve_data():
         """Serve disk info
         """
         # Title

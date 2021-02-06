@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.0.0 (2021-02-06)
+
+* Changed name from `service` to `service-stats` to avoid conflict with the builtin `service` keyword on some systems
+* Changed classmethods to staticmethods
+* Switched from Travis CI to GitHub Actions
+
 ## v1.2.1 (2020-11-16)
 
 * Swapping `None` for empty strings on those items that aren't present in reports, otherwise it'll literally print `None` when we don't want anything printed

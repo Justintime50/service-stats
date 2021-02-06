@@ -1,10 +1,11 @@
 from datetime import datetime
+
 import psutil
 
 
 class Boot():
-    @classmethod
-    def serve(cls):
+    @staticmethod
+    def serve_data():
         """Serve boot time info
         """
         # Title

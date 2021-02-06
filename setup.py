@@ -11,11 +11,11 @@ REQUIREMENTS = [
 
 setuptools.setup(
     name='service-stats',
-    version='1.2.1',
+    version='2.0.0',
     description='Service serves savvy server stats.',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='http://github.com/justintime50/service',
+    url='http://github.com/justintime50/service-stats',
     author='Justintime50',
     license='MIT',
     packages=setuptools.find_packages(),
@@ -36,7 +36,7 @@ setuptools.setup(
     },
     entry_points={
         'console_scripts': [
-            'service=service.app:main'
+            'service-stats=service_stats.app:main'
         ]
     },
     python_requires='>=3.6',

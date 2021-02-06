@@ -1,6 +1,6 @@
 class Global():
-    @classmethod
-    def get_size(cls, bytes_int, suffix="B"):
+    @staticmethod
+    def get_size(bytes_int, suffix="B"):
         """Scale bytes to its proper format
 
         e.g:

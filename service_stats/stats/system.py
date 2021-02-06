@@ -2,8 +2,8 @@ import platform
 
 
 class System():
-    @classmethod
-    def serve(cls):
+    @staticmethod
+    def serve_data():
         """Serve system info
         """
         # Title

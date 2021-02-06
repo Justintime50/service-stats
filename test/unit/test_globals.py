@@ -1,4 +1,4 @@
-from service.stats.globals import Global
+from service_stats import Global
 
 
 def test_get_size():

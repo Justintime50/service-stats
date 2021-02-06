@@ -1,24 +1,24 @@
 <div align="center">
 
-# Service
+# Service Stats
 
 Service serves savvy server stats.
 
-[![Build Status](https://travis-ci.com/Justintime50/service.svg?branch=master)](https://travis-ci.com/Justintime50/service)
-[![Coverage Status](https://coveralls.io/repos/github/Justintime50/service/badge.svg?branch=master)](https://coveralls.io/github/Justintime50/service?branch=master)
+[![Build Status](https://github.com/Justintime50/service-stats/workflows/build/badge.svg)](https://github.com/Justintime50/service-stats/actions)
+[![Coverage Status](https://coveralls.io/repos/github/Justintime50/service-stats/badge.svg?branch=main)](https://coveralls.io/github/Justintime50/service-stats?branch=main)
 [![PyPi](https://img.shields.io/pypi/v/service-stats)](https://pypi.org/project/service-stats/)
-[![Licence](https://img.shields.io/github/license/justintime50/service)](LICENSE)
+[![Licence](https://img.shields.io/github/license/justintime50/service-stats)](LICENSE)
 
 <img src="assets/showcase.png" alt="Showcase">
 
 </div>
 
-Service is completely configurable, allowing you to request data about boot time, CPU usage, disk usage, memory usage, network usage, and system information. You can send all this right to Slack. Great for a daily/weekly server snapshot of what's going on. Build custom logic to warn you about high CPU/memory usage or low available disk space.
+Service Stats is completely configurable, allowing you to request data about boot time, CPU usage, disk usage, memory usage, network usage, and system information. You can send all this right to Slack. Great for a daily/weekly server snapshot of what's going on. Build custom logic to warn you about high CPU/memory usage or low available disk space.
 
 ## Install
 
 ```bash
-# Install Service
+# Install Service Stats
 pip3 install service-stats
 
 # Install locally
@@ -37,7 +37,7 @@ Grab all server data and send it to Slack.
 
 ```
 Usage:
-    service --boot --cpu --disk --memory --network --system --slack
+    service-stats --boot --cpu --disk --memory --network --system --slack
 
 Options:
     -h, --help     show this help message and exit
@@ -67,7 +67,7 @@ make test
 make coverage
 
 # Run the scripts locally
-venv/bin/python service/app.py --help
+venv/bin/python service_stats/app.py --help
 ```
 
 ## Attribution

@@ -2,8 +2,8 @@ import psutil
 
 
 class Cpu():
-    @classmethod
-    def serve(cls):
+    @staticmethod
+    def serve_data():
         """Serve CPU info
         """
         # Title

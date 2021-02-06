@@ -1,6 +1,6 @@
 import mock
 import pytest
-from service.slack import Slack
+from service_stats import Slack
 
 
 def test_slack_error():
@@ -8,8 +8,8 @@ def test_slack_error():
         Slack.message('dummy message')
 
 
-@mock.patch('service.slack.SLACK_BOT_TOKEN', '123')
-@mock.patch('service.slack.SLACK_CHANNEL', 'mock-channel')
+@mock.patch('service_stats.slack.SLACK_BOT_TOKEN', '123')
+@mock.patch('service_stats.slack.SLACK_CHANNEL', 'mock-channel')
 @mock.patch('slack.WebClient.chat_postMessage')
 def test_slack_success(mock_slack):
     message = 'dummy message'
