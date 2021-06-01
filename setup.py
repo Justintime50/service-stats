@@ -1,17 +1,25 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 REQUIREMENTS = [
-    'psutil >= 5.7.0',
-    'slackclient >= 2.7.0',
-    'python-dotenv >= 0.13.0',
+    'psutil == 5.*',
+    'slackclient == 2.*',
+    'python-dotenv == 0.17.*',
+]
+
+DEV_REQUIREMENTS = [
+    'coveralls == 3.*',
+    'flake8',
+    'mock == 4.*',
+    'pytest == 6.*',
+    'pytest-cov == 2.*',
 ]
 
 setuptools.setup(
     name='service-stats',
-    version='2.0.0',
+    version='2.1.0',
     description='Service serves savvy server stats.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,13 +34,7 @@ setuptools.setup(
     ],
     install_requires=REQUIREMENTS,
     extras_require={
-        'dev': [
-            'pytest >= 6.0.0',
-            'pytest-cov >= 2.10.0',
-            'coveralls >= 2.1.2',
-            'flake8 >= 3.8.0',
-            'mock >= 4.0.0',
-        ]
+        'dev': DEV_REQUIREMENTS
     },
     entry_points={
         'console_scripts': [

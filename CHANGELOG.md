@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.1.0 (2021-05-31)
+
+* Pinned dependencies
+* Archived project
+
 ## v2.0.0 (2021-02-06)
 
 * Changed name from `service` to `service-stats` to avoid conflict with the builtin `service` keyword on some systems
